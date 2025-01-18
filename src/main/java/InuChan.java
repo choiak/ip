@@ -42,6 +42,15 @@ public class InuChan {
         System.out.println(question + ", arf arf?");
     }
 
+    /**
+     * Print the line being said with modification to fit Inu-chan's character.
+     *
+     * @param line the actual line being said (without any ending punctuation like period '.').
+     */
+    static void say(String line) {
+        System.out.println(line + ", ruff!");
+    }
+
     public static void main(String[] args) {
         greet();
         sayBye();
