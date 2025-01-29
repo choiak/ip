@@ -1,4 +1,7 @@
 public class InuChan {
+    private static String[] list = new String[100];
+    private static int numItems = 0;
+
     /**
      * Print Inu-chan with the given line next to him like below
      *      __    __
@@ -53,10 +56,6 @@ public class InuChan {
         System.out.println(question + ", arf arf?");
     }
 
-    static void echo(String line) {
-        showInuSpeak(line, false);
-    }
-
     /**
      * Print the line being said with modification to fit Inu-chan's character.
      *
@@ -66,14 +65,37 @@ public class InuChan {
         System.out.println(line + ", ruff!");
     }
 
+    static void echo(String line) {
+        showInuSpeak(line, false);
+    }
+
+    static void addToList(String line) {
+        list[numItems] = line;
+        numItems++;
+        showInuSpeak("Item added, WOOF!", false);
+        say("Added the following item");
+        System.out.println(line + "\n");
+    }
+
+    static void printList() {
+        showInuSpeak("The list, WOOF!", false);
+        say("Here's the list");
+        for (int i = 0; i < numItems; i++) {
+            System.out.println(i + 1 + ". " + list[i]);
+        }
+        System.out.println();
+    }
+
     public static void main(String[] args) {
         greet();
         while (true) {
             String command = new java.util.Scanner(System.in).nextLine();
             if (command.equals("bye")) {
                 break;
+            } else if (command.equals("list")) {
+                printList();
             } else {
-                echo(command);
+                addToList(command);
             }
         }
         sayBye();
