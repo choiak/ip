@@ -1,6 +1,5 @@
 public class InuChan {
-    private static String[] list = new String[100];
-    private static int numItems = 0;
+    private static ToDoList toDoList = new ToDoList();
 
     /**
      * Print Inu-chan with the given line next to him like below
@@ -70,30 +69,53 @@ public class InuChan {
     }
 
     static void addToList(String line) {
-        list[numItems] = line;
-        numItems++;
-        showInuSpeak("Item added, WOOF!", false);
-        say("Added the following item");
-        System.out.println(line + "\n");
+        Integer taskId = toDoList.addTask(line);
+        if (taskId == -1) {
+            showInuSpeak("The list is full, WOOF!", true);
+            say("Unable to add the given item to the list as the list is full");
+        } else {
+            showInuSpeak("Item added, WOOF!", false);
+            say("Added the following item as item " + taskId);
+            System.out.println(line + "\n");
+        }
     }
 
     static void printList() {
         showInuSpeak("The list, WOOF!", false);
         say("Here's the list");
-        for (int i = 0; i < numItems; i++) {
-            System.out.println(i + 1 + ". " + list[i]);
+        toDoList.printList();
+    }
+
+    static void markTask(Integer id, boolean isDone) {
+        Integer markResult = toDoList.markTask(id, isDone);
+        if (markResult == -1) {
+            showInuSpeak("It doesn't exist, WOOF!", true);
+            say("Unable to " + (isDone ? "mark" : "unmark") + " item " + id + " as it does not exist");
+        } else if (markResult == -2) {
+            showInuSpeak("It's " + (isDone ? "marked" : "unmarked") +
+                    " already, WOOF!", true);
+            say("The following item is already " + (isDone ? "marked" : "unmarked"));
+            toDoList.printTask(id);
+        } else {
+            showInuSpeak((isDone ? "Marked" : "Unmarked") + ", WOOF!", false);
+            say((isDone ? "Marked" : "Unmarked") + " the following item");
+            toDoList.printTask(id);
         }
-        System.out.println();
     }
 
     public static void main(String[] args) {
         greet();
         while (true) {
             String command = new java.util.Scanner(System.in).nextLine();
+            String[] tokenizedCommand = command.split(" ");
             if (command.equals("bye")) {
                 break;
             } else if (command.equals("list")) {
                 printList();
+            } else if (tokenizedCommand.length == 2 && tokenizedCommand[0].equals("mark")) {
+                markTask(Integer.parseInt(tokenizedCommand[1]), true);
+            } else if (tokenizedCommand.length == 2 && tokenizedCommand[0].equals("unmark")) {
+                markTask(Integer.parseInt(tokenizedCommand[1]), false);
             } else {
                 addToList(command);
             }
