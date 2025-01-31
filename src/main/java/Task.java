@@ -1,5 +1,5 @@
 public class Task {
-    private Integer id;
+    private final Integer id;
     private String name;
     private Boolean isDone;
 
@@ -17,12 +17,8 @@ public class Task {
         return isDone;
     }
 
-    public void markAsDone() {
-        isDone = true;
-    }
-
-    public void markAsNotDone() {
-        isDone = false;
+    public void markTask(Boolean isDone) {
+        this.isDone = isDone;
     }
 
     public void printTask() {

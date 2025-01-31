@@ -1,9 +1,9 @@
-public class ToDoList {
+public class TaskList {
     private final Integer capacity;
     private Task[] list;
     private Integer numCurrentItem;
 
-    public ToDoList() {
+    public TaskList() {
         capacity = 100;
         list = new Task[capacity];
         numCurrentItem = 0;
@@ -50,14 +50,9 @@ public class ToDoList {
         } else if ((isDone && list[id - 1].getIsDone()) || (!isDone && !list[id - 1].getIsDone())) {
             return -2;
         } else {
-            if (isDone) {
-                list[id - 1].markAsDone();
-            } else {
-                list[id - 1].markAsNotDone();
-            }
+            list[id - 1].markTask(isDone);
             return id;
         }
-
     }
 
     public void printList() {

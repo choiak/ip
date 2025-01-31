@@ -1,5 +1,5 @@
 public class InuChan {
-    private static ToDoList toDoList = new ToDoList();
+    private static TaskList taskList = new TaskList();
 
     /**
      * Print Inu-chan with the given line next to him like below
@@ -69,7 +69,7 @@ public class InuChan {
     }
 
     static void addToList(String line) {
-        Integer taskId = toDoList.addTask(line);
+        Integer taskId = taskList.addTask(line);
         if (taskId == -1) {
             showInuSpeak("The list is full, WOOF!", true);
             say("Unable to add the given item to the list as the list is full");
@@ -83,11 +83,17 @@ public class InuChan {
     static void printList() {
         showInuSpeak("The list, WOOF!", false);
         say("Here's the list");
-        toDoList.printList();
+        taskList.printList();
     }
 
+    /**
+     * Mark the task of the given id as the required state.
+     *
+     * @param id The id of the task.
+     * @param isDone The required state of the task.
+     */
     static void markTask(Integer id, boolean isDone) {
-        Integer markResult = toDoList.markTask(id, isDone);
+        Integer markResult = taskList.markTask(id, isDone);
         if (markResult == -1) {
             showInuSpeak("It doesn't exist, WOOF!", true);
             say("Unable to " + (isDone ? "mark" : "unmark") + " item " + id + " as it does not exist");
@@ -95,11 +101,11 @@ public class InuChan {
             showInuSpeak("It's " + (isDone ? "marked" : "unmarked") +
                     " already, WOOF!", true);
             say("The following item is already " + (isDone ? "marked" : "unmarked"));
-            toDoList.printTask(id);
+            taskList.printTask(id);
         } else {
             showInuSpeak((isDone ? "Marked" : "Unmarked") + ", WOOF!", false);
             say((isDone ? "Marked" : "Unmarked") + " the following item");
-            toDoList.printTask(id);
+            taskList.printTask(id);
         }
     }
 
