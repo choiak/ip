@@ -19,11 +19,8 @@ public class Task {
         this.isMarked = isMarked;
     }
 
-    public void printTask() {
-        if (isDone) {
-            System.out.println(id + ".[X]: " + name);
-        } else {
-            System.out.println(id + ".[ ]: " + name);
-        }
+    @Override
+    public String toString() {
+        return "[*]" + (isMarked ? "[X]" : "[ ]") + ": " + name;
     }
 }

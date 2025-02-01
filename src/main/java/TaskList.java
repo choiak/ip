@@ -55,13 +55,12 @@ public class TaskList {
         }
     }
 
-    public void printList() {
-        for (int i = 0; i < numCurrentItem; i++) {
-            list[i].printTask();
+    @Override
+    public String toString() {
+        String result = "";
+        for (int i = 0; i < taskCount; i++) {
+            result += (i + 1) + ". " + list[i] + "\n";
         }
-    }
-
-    public void printTask(Integer id) {
-        list[id - 1].printTask();
+        return result.trim();
     }
 }

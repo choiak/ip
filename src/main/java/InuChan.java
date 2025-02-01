@@ -73,16 +73,12 @@ public class InuChan {
             showInuSpeak("The list is full, WOOF!", true);
             say("Unable to add the given item to the list as the list is full");
         } else {
-            showInuSpeak("Item added, WOOF!", false);
-            say("Added the following item as item " + taskId);
-            System.out.println(line + "\n");
+            showInuSpeak("Task added, WOOF!", false);
+            say("Added the following task as task " + result);
+            System.out.println("\t" + taskList.getTask(result));
         }
     }
 
-    static void printList() {
-        showInuSpeak("The list, WOOF!", false);
-        say("Here's the list");
-        taskList.printList();
     }
 
     /**
@@ -100,11 +96,14 @@ public class InuChan {
             showInuSpeak("It's " + (isDone ? "marked" : "unmarked") +
                     " already, WOOF!", true);
             say("The following item is already " + (isDone ? "marked" : "unmarked"));
-            taskList.printTask(id);
+            System.out.println("\t" + taskList.getTask(id));
         } else {
             showInuSpeak((isDone ? "Marked" : "Unmarked") + ", WOOF!", false);
             say((isDone ? "Marked" : "Unmarked") + " the following item");
-            taskList.printTask(id);
+            System.out.println("\t" + taskList.getTask(id));
+        }
+    }
+
         }
     }
 
