@@ -1,24 +1,22 @@
 public class Task {
-    private final Integer id;
     private String name;
-    private Boolean isDone;
+    private Boolean isMarked;
 
-    public Task(Integer id, String name) {
-        this.id = id;
+    public Task(String name) {
         this.name = name;
-        isDone = false;
+        isMarked = false;
     }
 
     public String getName() {
         return name;
     }
 
-    public Boolean getIsDone() {
-        return isDone;
+    public Boolean getIsMarked() {
+        return isMarked;
     }
 
-    public void markTask(Boolean isDone) {
-        this.isDone = isDone;
+    public void markTask(Boolean isMarked) {
+        this.isMarked = isMarked;
     }
 
     public void printTask() {

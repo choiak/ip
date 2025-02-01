@@ -15,7 +15,7 @@ public class InuChan {
      * @param line the line being said
      * @param isSad whether Inu-chan is sad
      */
-    static void showInuSpeak(String line, Boolean isSad) {
+    public static void showInuSpeak(String line, Boolean isSad) {
         String face = "";
         if (isSad) {
             face = "       \\Q  Q/    ";
@@ -35,13 +35,13 @@ public class InuChan {
                 %n""",face, line);
     }
 
-    static void greet() {
+    public static void greet() {
         showInuSpeak("WOOF! WOOF!", false);
         System.out.println("Hi there! I'm Inu-chan, woof!");
         ask("How can I help you");
     }
 
-    static void sayBye() {
+    public static void sayBye() {
         showInuSpeak("AWOO!", true);
         System.out.println("Woof! I will be waiting you! See you, awooooo!");
     }
@@ -51,7 +51,7 @@ public class InuChan {
      *
      * @param question the actual question being asked (without any ending punctuation like question mark '?').
      */
-    static void ask(String question) {
+    public static void ask(String question) {
         System.out.println(question + ", arf arf?");
     }
 
@@ -60,17 +60,16 @@ public class InuChan {
      *
      * @param line the actual line being said (without any ending punctuation like period '.').
      */
-    static void say(String line) {
+    public static void say(String line) {
         System.out.println(line + ", ruff!");
     }
 
-    static void echo(String line) {
+    public static void echo(String line) {
         showInuSpeak(line, false);
     }
 
-    static void addToList(String line) {
-        Integer taskId = taskList.addTask(line);
-        if (taskId == -1) {
+    public static void printAddTaskResult(Integer result) {
+        if (result == -1) {
             showInuSpeak("The list is full, WOOF!", true);
             say("Unable to add the given item to the list as the list is full");
         } else {
@@ -92,7 +91,7 @@ public class InuChan {
      * @param id The id of the task.
      * @param isDone The required state of the task.
      */
-    static void markTask(Integer id, boolean isDone) {
+    public static void markTask(Integer id, boolean isDone) {
         Integer markResult = taskList.markTask(id, isDone);
         if (markResult == -1) {
             showInuSpeak("It doesn't exist, WOOF!", true);

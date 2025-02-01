@@ -1,35 +1,35 @@
 public class TaskList {
     private final Integer capacity;
     private Task[] list;
-    private Integer numCurrentItem;
+    private Integer taskCount;
 
     public TaskList() {
         capacity = 100;
         list = new Task[capacity];
-        numCurrentItem = 0;
+        taskCount = 0;
     }
 
     public Task getTask(Integer id) {
         return list[id - 1];
     }
 
-    public Integer getNumCurrentItem() {
-        return numCurrentItem;
+    public Integer getTaskCount() {
+        return taskCount;
     }
 
     /**
      * Add a new task to the list.
-     * Return the task id.
+     * Return the task count.
      * Return -1 if the list is full.
      *
-     * @param name The name of the task.
-     * @return Task id, -1 if the list is full.
+     * @param task The task to be added.
+     * @return Task count, -1 if the list is full.
      */
-    public Integer addTask(String name) {
-        if (numCurrentItem < capacity) {
-            list[numCurrentItem] = new Task(numCurrentItem + 1, name);
-            numCurrentItem++;
-            return numCurrentItem;
+    public Integer addTask(Task task) {
+        if (taskCount < capacity) {
+            list[taskCount] = task;
+            taskCount++;
+            return taskCount;
         } else {
             return -1;
         }
@@ -45,9 +45,9 @@ public class TaskList {
      * @return Task id, -1 if the id is invalid, -2 if the task is already in the required state.
      */
     public Integer markTask(Integer id, Boolean isDone) {
-        if (id < 1 || id > numCurrentItem) {
+        if (id < 1 || id > taskCount) {
             return -1;
-        } else if ((isDone && list[id - 1].getIsDone()) || (!isDone && !list[id - 1].getIsDone())) {
+        } else if ((isDone && list[id - 1].getIsMarked()) || (!isDone && !list[id - 1].getIsMarked())) {
             return -2;
         } else {
             list[id - 1].markTask(isDone);
