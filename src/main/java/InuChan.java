@@ -79,6 +79,45 @@ public class InuChan {
         }
     }
 
+    /**
+     * Add a to-do task to the list.
+     *
+     * @param name Name of the to-do task.
+     */
+    public static void addToDo(String name) {
+        printAddTaskResult(taskList.addTask(new ToDo(name)));
+    }
+
+    /**
+     * Add a deadline task to the list.
+     *
+     * @param name Name of the deadline task.
+     * @param by When the deadline is due.
+     */
+    public static void addDeadline(String name, String by) {
+        printAddTaskResult(taskList.addTask(new Deadline(name, by)));
+    }
+
+    /**
+     * Add an event task to the list.
+     *
+     * @param name Name of the event task.
+     * @param from When the event starts.
+     * @param to When the event ends.
+     */
+    public static void addEvent(String name, String from, String to) {
+        printAddTaskResult(taskList.addTask(new Event(name, from, to)));
+    }
+
+    public static void printList() {
+        if (taskList.getTaskCount() == 0) {
+            showInuSpeak("It's empty, WOOF!", true);
+            say("The list is empty");
+        } else {
+            showInuSpeak("The list, WOOF!", false);
+            say("Here's the list");
+            System.out.println(taskList);
+        }
     }
 
     /**
@@ -104,24 +143,68 @@ public class InuChan {
         }
     }
 
+    /**
+     * Tokenize the input command.
+     * Return an array of tokens.
+     * Index 0 is the command itself, and the rest are arguments.
+     *
+     * @param command The input command.
+     * @return Array of tokens and its respective arguments.
+     */
+    public static String[] tokenize(String command) {
+        String[] spaceSeparatedToken = command.split(" ");
+        String[] slashSeparatedToken = command.split("/");
+        if (spaceSeparatedToken.length == 1) {
+            return new String[] {spaceSeparatedToken[0]};
+        } else if (spaceSeparatedToken.length == 2 &&
+                (spaceSeparatedToken[0].equals("mark") || spaceSeparatedToken[0].equals("unmark"))) {
+            return new String[] {spaceSeparatedToken[0], spaceSeparatedToken[1]};
+        } else if (spaceSeparatedToken[0].equals("todo")) {
+            return new String[] {spaceSeparatedToken[0], command.substring(4).strip()};
+        } else if (spaceSeparatedToken[0].equals("deadline")) {
+            return new String[] {spaceSeparatedToken[0],
+                    slashSeparatedToken[0].substring(8).strip(),
+                    slashSeparatedToken[1].substring(2).strip()};
+        } else if (spaceSeparatedToken[0].equals("event")) {
+            return new String[] {spaceSeparatedToken[0],
+                    slashSeparatedToken[0].substring(6).strip(),
+                    slashSeparatedToken[1].substring(4).strip(),
+                    slashSeparatedToken[2].substring(2).strip()};
+        } else {
+            return new String[] {command};
         }
     }
 
     public static void main(String[] args) {
         greet();
-        while (true) {
+        boolean isEnded = false;
+        while (!isEnded) {
             String command = new java.util.Scanner(System.in).nextLine();
-            String[] tokenizedCommand = command.split(" ");
-            if (command.equals("bye")) {
-                break;
-            } else if (command.equals("list")) {
-                printList();
-            } else if (tokenizedCommand.length == 2 && tokenizedCommand[0].equals("mark")) {
-                markTask(Integer.parseInt(tokenizedCommand[1]), true);
-            } else if (tokenizedCommand.length == 2 && tokenizedCommand[0].equals("unmark")) {
-                markTask(Integer.parseInt(tokenizedCommand[1]), false);
-            } else {
-                addToList(command);
+            String[] tokenizedCommand = tokenize(command.strip());
+            switch (tokenizedCommand[0]) {
+                case "bye":
+                    isEnded = true;
+                    break;
+                case "list":
+                    printList();
+                    break;
+                case "mark":
+                    markTask(Integer.parseInt(tokenizedCommand[1]), true);
+                    break;
+                case "unmark":
+                    markTask(Integer.parseInt(tokenizedCommand[1]), false);
+                    break;
+                case "todo":
+                    addToDo(tokenizedCommand[1]);
+                    break;
+                case "deadline":
+                    addDeadline(tokenizedCommand[1], tokenizedCommand[2]);
+                    break;
+                case "event":
+                    addEvent(tokenizedCommand[1], tokenizedCommand[2], tokenizedCommand[3]);
+                    break;
+                default:
+                    echo(command);
             }
         }
         sayBye();
