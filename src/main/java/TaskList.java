@@ -9,8 +9,8 @@ public class TaskList {
         taskCount = 0;
     }
 
-    public Task getTask(Integer id) {
-        return list[id - 1];
+    public Task getTask(Integer index) {
+        return list[index - 1];
     }
 
     public Integer getTaskCount() {
@@ -36,22 +36,22 @@ public class TaskList {
     }
 
     /**
-     * Mark the task of the given id as the required state.
-     * Return the task id.
-     * Return negative value if the id is invalid or the task is already in the required state.
+     * Mark the task of the given index as the required state.
+     * Return the task index.
+     * Return negative value if the index is invalid or the task is already in the required state.
      *
-     * @param id The id of the task.
+     * @param index The index of the task.
      * @param isDone The required state of the task.
-     * @return Task id, -1 if the id is invalid, -2 if the task is already in the required state.
+     * @return Task index, -1 if the index is invalid, -2 if the task is already in the required state.
      */
-    public Integer markTask(Integer id, Boolean isDone) {
-        if (id < 1 || id > taskCount) {
+    public Integer markTask(Integer index, Boolean isDone) {
+        if (index < 1 || index > taskCount) {
             return -1;
-        } else if ((isDone && list[id - 1].getIsMarked()) || (!isDone && !list[id - 1].getIsMarked())) {
+        } else if ((isDone && list[index - 1].getIsMarked()) || (!isDone && !list[index - 1].getIsMarked())) {
             return -2;
         } else {
-            list[id - 1].markTask(isDone);
-            return id;
+            list[index - 1].markTask(isDone);
+            return index;
         }
     }
 

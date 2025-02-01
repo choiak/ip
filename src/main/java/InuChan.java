@@ -121,25 +121,25 @@ public class InuChan {
     }
 
     /**
-     * Mark the task of the given id as the required state.
+     * Mark the task of the given index as the required state.
      *
-     * @param id The id of the task.
+     * @param index The index of the task.
      * @param isDone The required state of the task.
      */
-    public static void markTask(Integer id, boolean isDone) {
-        Integer markResult = taskList.markTask(id, isDone);
+    public static void markTask(Integer index, boolean isDone) {
+        Integer markResult = taskList.markTask(index, isDone);
         if (markResult == -1) {
             showInuSpeak("It doesn't exist, WOOF!", true);
-            say("Unable to " + (isDone ? "mark" : "unmark") + " item " + id + " as it does not exist");
+            say("Unable to " + (isDone ? "mark" : "unmark") + " item " + index + " as it does not exist");
         } else if (markResult == -2) {
             showInuSpeak("It's " + (isDone ? "marked" : "unmarked") +
                     " already, WOOF!", true);
             say("The following item is already " + (isDone ? "marked" : "unmarked"));
-            System.out.println("\t" + taskList.getTask(id));
+            System.out.println("\t" + taskList.getTask(index));
         } else {
             showInuSpeak((isDone ? "Marked" : "Unmarked") + ", WOOF!", false);
             say((isDone ? "Marked" : "Unmarked") + " the following item");
-            System.out.println("\t" + taskList.getTask(id));
+            System.out.println("\t" + taskList.getTask(index));
         }
     }
 
