@@ -6,11 +6,9 @@ import inuChan.tasks.Task;
 
 public class TaskList {
     private ArrayList<Task> tasks;
-    private Integer taskCount;
 
     public TaskList() {
         tasks = new ArrayList<>();
-        taskCount = 0;
     }
 
     public Task getTask(Integer index) {
@@ -57,7 +55,7 @@ public class TaskList {
     @Override
     public String toString() {
         String result = "";
-        for (int i = 0; i < taskCount; i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             result += (i + 1) + ". " + tasks.get(i) + "\n";
         }
         return result.trim();
