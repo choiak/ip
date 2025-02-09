@@ -232,7 +232,7 @@ public class InuChan {
         if (command.split(" +").length > 1) {
             throw new InvalidArgumentCount();
         }
-        return new String[]{firstWord};
+        return new String[]{(firstWord.equals("list")) ? "list" : "bye"};
     }
 
     /**
@@ -254,7 +254,7 @@ public class InuChan {
             case "todo" -> tokenizeTodo(command);
             case "deadline" -> tokenizeDeadline(command);
             case "event" -> tokenizeEvent(command);
-            case "bye", "list" -> tokenizeByeList(command, firstWord);
+            case "bye", "quit", "exit", "goodbye", "list" -> tokenizeByeList(command, firstWord);
             default -> throw new InvalidCommand();
         };
     }

@@ -57,9 +57,12 @@ Added the following task as task 2, ruff!
 ### Adding event
 Add an event to the list.
 
-Command: `event <task name> /from <time> /to <time>`
+Command: `event <task name> /from <starting time> /to <ending time>`
 
-Example: `event dinner with friends! /from 18:00 /to 20:00`
+Examples: 
+ - `event dinner with friends! /from 18:00 /to 20:00`
+ - `event dinner with friends! /to 20:00 /from 18:00`
+
 
 Example output
 ```
@@ -144,7 +147,7 @@ Unmarked the following item, ruff!
 
 ## Exit the program
 
-Command: `bye`
+Command: `bye` or  `quit` or `exit` or `goodbye`
 
 ## Adding deadlines
 
