@@ -1,0 +1,14 @@
+deadline D1
+deadline D1 /from
+deadline /from
+deadline /from /to
+deadline /by
+deadline /by tomorrow
+deadline /by /by
+deadline D1 /by /by
+deadline D1 /by tomorrow
+deadline D2 /by /from
+deadline D2 /by /to
+deadline D2 /by next Mon
+list
+bye

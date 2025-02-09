@@ -1,0 +1,19 @@
+event /by
+event /from
+event /to
+event E1
+event E1 /by
+event E1 /from
+event E1 /to
+event E1 /from /to
+event E1 /from /to /by
+event E1 /by /from /to
+event E1 /from 1 /to /by
+event E1 /from 1 /to 2 /by
+event E1 /from 1 /to 2
+event E2 /to /from
+event E2 /to 2 /from /by
+event E2 /to 4 /from 2 /by
+event E2 /to 4 /from 2
+list
+bye

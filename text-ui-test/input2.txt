@@ -1,0 +1,11 @@
+todo
+todo /by
+todo /by tomorrow
+todo T1 /by tomorrow
+todo /from
+todo /to 2
+todo /from /to
+todo T1
+todo T2
+list
+bye

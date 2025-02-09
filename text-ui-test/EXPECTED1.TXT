@@ -1,0 +1,298 @@
+
+       __    __
+       \/----\/
+        \^  ^/    WOOF! WOOF!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Hi there! I'm Inu-chan, woof!
+How can I help you, arf arf?
+
+       __    __
+       \/----\/
+        \Q  Q/    It's empty, AWO!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+The list is empty, ruff!
+
+       __    __
+       \/----\/
+        \Q  Q/    I don't understand, AWOO!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Illegal command argument!, ruff!
+
+       __    __
+       \/----\/
+        \Q  Q/    It doesn't exist, AWO!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Unable to mark item 0 as it does not exist, ruff!
+
+       __    __
+       \/----\/
+        \Q  Q/    It doesn't exist, AWO!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Unable to mark item 1 as it does not exist, ruff!
+
+       __    __
+       \/----\/
+        \Q  Q/    I don't understand, AWOO!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Illegal command argument!, ruff!
+
+       __    __
+       \/----\/
+        \Q  Q/    It doesn't exist, AWO!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Unable to unmark item 0 as it does not exist, ruff!
+
+       __    __
+       \/----\/
+        \Q  Q/    It doesn't exist, AWO!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Unable to unmark item 1 as it does not exist, ruff!
+
+       __    __
+       \/----\/
+        \^  ^/    Task added, WOOF!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Added the following task as task 1, ruff!
+	[T][ ]: T1
+
+       __    __
+       \/----\/
+        \^  ^/    The list, WOOF!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Here's the list, ruff!
+1. [T][ ]: T1
+
+       __    __
+       \/----\/
+        \Q  Q/    It's unmarked already, AWO!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+The following item is already unmarked, ruff!
+	[T][ ]: T1
+
+       __    __
+       \/----\/
+        \^  ^/    Marked, WOOF!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Marked the following item, ruff!
+	[T][X]: T1
+
+       __    __
+       \/----\/
+        \Q  Q/    It's marked already, AWO!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+The following item is already marked, ruff!
+	[T][X]: T1
+
+       __    __
+       \/----\/
+        \^  ^/    Task added, WOOF!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Added the following task as task 2, ruff!
+	[T][ ]: T2
+
+       __    __
+       \/----\/
+        \^  ^/    Task added, WOOF!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Added the following task as task 3, ruff!
+	[D][ ]: D1 (by tmr)
+
+       __    __
+       \/----\/
+        \^  ^/    Task added, WOOF!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Added the following task as task 4, ruff!
+	[E][ ]: E1 (1 -> 2)
+
+       __    __
+       \/----\/
+        \^  ^/    The list, WOOF!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Here's the list, ruff!
+1. [T][X]: T1
+2. [T][ ]: T2
+3. [D][ ]: D1 (by tmr)
+4. [E][ ]: E1 (1 -> 2)
+
+       __    __
+       \/----\/
+        \^  ^/    Marked, WOOF!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Marked the following item, ruff!
+	[D][X]: D1 (by tmr)
+
+       __    __
+       \/----\/
+        \Q  Q/    It doesn't exist, AWO!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Unable to unmark item 5 as it does not exist, ruff!
+
+       __    __
+       \/----\/
+        \Q  Q/    It doesn't exist, AWO!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Unable to mark item 5 as it does not exist, ruff!
+
+       __    __
+       \/----\/
+        \Q  Q/    It doesn't exist, AWO!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Unable to mark item 5 as it does not exist, ruff!
+
+       __    __
+       \/----\/
+        \^  ^/    The list, WOOF!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Here's the list, ruff!
+1. [T][X]: T1
+2. [T][ ]: T2
+3. [D][X]: D1 (by tmr)
+4. [E][ ]: E1 (1 -> 2)
+
+       __    __
+       \/----\/
+        \^  ^/    Unmarked, WOOF!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Unmarked the following item, ruff!
+	[D][ ]: D1 (by tmr)
+
+       __    __
+       \/----\/
+        \^  ^/    The list, WOOF!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Here's the list, ruff!
+1. [T][X]: T1
+2. [T][ ]: T2
+3. [D][ ]: D1 (by tmr)
+4. [E][ ]: E1 (1 -> 2)
+
+       __    __
+       \/----\/
+        \Q  Q/    AWOO!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Woof! I will be waiting you! See you, awooooo!

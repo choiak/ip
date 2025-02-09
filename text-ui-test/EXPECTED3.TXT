@@ -1,0 +1,170 @@
+
+       __    __
+       \/----\/
+        \^  ^/    WOOF! WOOF!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Hi there! I'm Inu-chan, woof!
+How can I help you, arf arf?
+
+       __    __
+       \/----\/
+        \Q  Q/    I don't understand, AWOO!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Incorrect number of arguments!, ruff!
+
+       __    __
+       \/----\/
+        \Q  Q/    I don't understand, AWOO!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Illegal command argument!, ruff!
+
+       __    __
+       \/----\/
+        \Q  Q/    I don't understand, AWOO!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Illegal command argument!, ruff!
+
+       __    __
+       \/----\/
+        \Q  Q/    I don't understand, AWOO!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Illegal command argument!, ruff!
+
+       __    __
+       \/----\/
+        \Q  Q/    I don't understand, AWOO!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Incorrect number of arguments!, ruff!
+
+       __    __
+       \/----\/
+        \Q  Q/    I don't understand, AWOO!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Incorrect number of arguments!, ruff!
+
+       __    __
+       \/----\/
+        \Q  Q/    I don't understand, AWOO!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Incorrect number of arguments!, ruff!
+
+       __    __
+       \/----\/
+        \Q  Q/    I don't understand, AWOO!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Incorrect number of arguments!, ruff!
+
+       __    __
+       \/----\/
+        \^  ^/    Task added, WOOF!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Added the following task as task 1, ruff!
+	[D][ ]: D1 (by tomorrow)
+
+       __    __
+       \/----\/
+        \Q  Q/    I don't understand, AWOO!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Illegal command argument!, ruff!
+
+       __    __
+       \/----\/
+        \Q  Q/    I don't understand, AWOO!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Illegal command argument!, ruff!
+
+       __    __
+       \/----\/
+        \^  ^/    Task added, WOOF!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Added the following task as task 2, ruff!
+	[D][ ]: D2 (by next Mon)
+
+       __    __
+       \/----\/
+        \^  ^/    The list, WOOF!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Here's the list, ruff!
+1. [D][ ]: D1 (by tomorrow)
+2. [D][ ]: D2 (by next Mon)
+
+       __    __
+       \/----\/
+        \Q  Q/    AWOO!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Woof! I will be waiting you! See you, awooooo!
