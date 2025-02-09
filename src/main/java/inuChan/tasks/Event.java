@@ -1,3 +1,5 @@
+package inuChan.tasks;
+
 public class Event extends Task {
     String from;
     String to;

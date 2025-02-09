@@ -8,8 +8,8 @@
 There are three types of tasks:
 
 * To-Do (labelled as T)
-* Deadline (labelled as D)
-* Event (labelled as E)
+* inuChan.tasks.Deadline (labelled as D)
+* inuChan.tasks.Event (labelled as E)
 
 ### Adding To-Do
 Add a to-do task to the list.
@@ -22,7 +22,7 @@ Example output
 ```
        __    __
        \/----\/
-        \^  ^/    Task added, WOOF!
+        \^  ^/    inuChan.tasks.Task added, WOOF!
         _\  /_
       _|  \/  |_
      | | |  | | |
@@ -44,7 +44,7 @@ Example output
 ```
        __    __
        \/----\/
-        \^  ^/    Task added, WOOF!
+        \^  ^/    inuChan.tasks.Task added, WOOF!
         _\  /_
       _|  \/  |_
      | | |  | | |
@@ -65,7 +65,7 @@ Example output
 ```
        __    __
        \/----\/
-        \^  ^/    Task added, WOOF!
+        \^  ^/    inuChan.tasks.Task added, WOOF!
         _\  /_
       _|  \/  |_
      | | |  | | |

@@ -1,3 +1,5 @@
+package inuChan.tasks;
+
 public class Task {
     private String name;
     private Boolean isMarked;

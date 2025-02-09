@@ -1,3 +1,5 @@
+package inuChan.tasks;
+
 public class Deadline extends ToDo {
     String by;
 

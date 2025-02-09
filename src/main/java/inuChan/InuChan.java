@@ -1,3 +1,12 @@
+package inuChan;
+
+import inuChan.commandExceptions.InvalidArgument;
+import inuChan.commandExceptions.InvalidArgumentCount;
+import inuChan.commandExceptions.InvalidCommand;
+import inuChan.tasks.Deadline;
+import inuChan.tasks.Event;
+import inuChan.tasks.ToDo;
+
 public class InuChan {
     private static TaskList taskList = new TaskList();
     private static boolean isEnded = false;
@@ -74,7 +83,7 @@ public class InuChan {
             showInuSpeak("The list is full, AWO!", true);
             say("Unable to add the given item to the list as the list is full");
         } else {
-            showInuSpeak("Task added, WOOF!", false);
+            showInuSpeak("inuChan.task.Task added, WOOF!", false);
             say("Added the following task as task " + result);
             System.out.println("\t" + taskList.getTask(result));
         }
