@@ -41,16 +41,17 @@ public class TaskList {
      * Return negative value if the index is invalid or the task is already in the required state.
      *
      * @param index The index of the task.
-     * @param isDone The required state of the task.
-     * @return Task index, -1 if the index is invalid, -2 if the task is already in the required state.
+     * @param isMarked The required state of the task.
+     * @return Task index, SAME_STATE if the task is already in the required state.
      */
-    public Integer markTask(Integer index, Boolean isDone) {
-        if (index < 1 || index > taskCount) {
-            return -1;
-        } else if ((isDone && list[index - 1].getIsMarked()) || (!isDone && !list[index - 1].getIsMarked())) {
-            return -2;
+    public int markTask(Integer index, Boolean isMarked) {
+        final int SAME_STATE = -1;
+        final boolean isBothMarked = isMarked && list[index - 1].getIsMarked();
+        final boolean isBothNotMarked = !isMarked && !list[index - 1].getIsMarked();
+        if (isBothMarked || isBothNotMarked) {
+            return SAME_STATE;
         } else {
-            list[index - 1].markTask(isDone);
+            list[index - 1].markTask(isMarked);
             return index;
         }
     }

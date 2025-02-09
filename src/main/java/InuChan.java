@@ -125,22 +125,25 @@ public class InuChan {
      * Mark the task of the given index as the required state.
      *
      * @param index The index of the task.
-     * @param isDone The required state of the task.
+     * @param isMarked The required state of the task.
      */
-    public static void markTask(Integer index, boolean isDone) {
-        Integer markResult = taskList.markTask(index, isDone);
-        if (markResult == -1) {
-            showInuSpeak("It doesn't exist, WOOF!", true);
-            say("Unable to " + (isDone ? "mark" : "unmark") + " item " + index + " as it does not exist");
-        } else if (markResult == -2) {
-            showInuSpeak("It's " + (isDone ? "marked" : "unmarked") +
-                    " already, WOOF!", true);
-            say("The following item is already " + (isDone ? "marked" : "unmarked"));
-            System.out.println("\t" + taskList.getTask(index));
-        } else {
-            showInuSpeak((isDone ? "Marked" : "Unmarked") + ", WOOF!", false);
-            say((isDone ? "Marked" : "Unmarked") + " the following item");
-            System.out.println("\t" + taskList.getTask(index));
+    public static void markTask(Integer index, boolean isMarked) {
+        final int SAME_STATE = -1;
+        try {
+            int markResult = taskList.markTask(index, isMarked);
+            if (markResult == SAME_STATE) {
+                showInuSpeak("It's " + (isMarked ? "marked" : "unmarked") +
+                        " already, AWO!", true);
+                say("The following item is already " + (isMarked ? "marked" : "unmarked"));
+                System.out.println("\t" + taskList.getTask(index));
+            } else {
+                showInuSpeak((isMarked ? "Marked" : "Unmarked") + ", WOOF!", false);
+                say((isMarked ? "Marked" : "Unmarked") + " the following item");
+                System.out.println("\t" + taskList.getTask(index));
+            }
+        } catch (IndexOutOfBoundsException | NullPointerException e) {
+            showInuSpeak("It doesn't exist, AWO!", true);
+            say("Unable to " + (isMarked ? "mark" : "unmark") + " item " + index + " as it does not exist");
         }
     }
 
