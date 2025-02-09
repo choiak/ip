@@ -1,42 +1,36 @@
 package inuChan;
 
+import java.util.ArrayList;
+
 import inuChan.tasks.Task;
 
 public class TaskList {
-    private final Integer capacity;
-    private Task[] list;
+    private ArrayList<Task> tasks;
     private Integer taskCount;
 
     public TaskList() {
-        capacity = 100;
-        list = new Task[capacity];
+        tasks = new ArrayList<>();
         taskCount = 0;
     }
 
     public Task getTask(Integer index) {
-        return list[index - 1];
+        return tasks.get(index - 1);
     }
 
     public Integer getTaskCount() {
-        return taskCount;
+        return tasks.size();
     }
 
     /**
      * Add a new task to the list.
      * Return the task count.
-     * Return -1 if the list is full.
      *
      * @param task The task to be added.
-     * @return Task count, -1 if the list is full.
+     * @return Task count.
      */
     public Integer addTask(Task task) {
-        if (taskCount < capacity) {
-            list[taskCount] = task;
-            taskCount++;
-            return taskCount;
-        } else {
-            return -1;
-        }
+        tasks.add(task);
+        return tasks.size();
     }
 
     /**
@@ -50,12 +44,12 @@ public class TaskList {
      */
     public int markTask(Integer index, Boolean isMarked) {
         final int SAME_STATE = -1;
-        final boolean isBothMarked = isMarked && list[index - 1].getIsMarked();
-        final boolean isBothNotMarked = !isMarked && !list[index - 1].getIsMarked();
-        if (isBothMarked || isBothNotMarked) {
+        final boolean IS_BOTH_MARKED = isMarked && tasks.get(index - 1).getIsMarked();
+        final boolean IS_BOTH_UNMARKED = !isMarked && !tasks.get(index - 1).getIsMarked();
+        if (IS_BOTH_MARKED || IS_BOTH_UNMARKED) {
             return SAME_STATE;
         } else {
-            list[index - 1].markTask(isMarked);
+            tasks.get(index - 1).markTask(isMarked);
             return index;
         }
     }
@@ -64,7 +58,7 @@ public class TaskList {
     public String toString() {
         String result = "";
         for (int i = 0; i < taskCount; i++) {
-            result += (i + 1) + ". " + list[i] + "\n";
+            result += (i + 1) + ". " + tasks.get(i) + "\n";
         }
         return result.trim();
     }
