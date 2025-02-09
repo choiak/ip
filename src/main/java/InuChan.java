@@ -1,5 +1,6 @@
 public class InuChan {
     private static TaskList taskList = new TaskList();
+    private static boolean isEnded = false;
 
     /**
      * Print Inu-chan with the given line next to him like below
@@ -70,7 +71,7 @@ public class InuChan {
 
     public static void printAddTaskResult(Integer result) {
         if (result == -1) {
-            showInuSpeak("The list is full, WOOF!", true);
+            showInuSpeak("The list is full, AWO!", true);
             say("Unable to add the given item to the list as the list is full");
         } else {
             showInuSpeak("Task added, WOOF!", false);
@@ -111,7 +112,7 @@ public class InuChan {
 
     public static void printList() {
         if (taskList.getTaskCount() == 0) {
-            showInuSpeak("It's empty, WOOF!", true);
+            showInuSpeak("It's empty, AWO!", true);
             say("The list is empty");
         } else {
             showInuSpeak("The list, WOOF!", false);
@@ -127,19 +128,22 @@ public class InuChan {
      * @param isMarked The required state of the task.
      */
     public static void markTask(Integer index, boolean isMarked) {
-        Integer markResult = taskList.markTask(index, isMarked);
-        if (markResult == -1) {
-            showInuSpeak("It doesn't exist, WOOF!", true);
+        final int SAME_STATE = -1;
+        try {
+            int markResult = taskList.markTask(index, isMarked);
+            if (markResult == SAME_STATE) {
+                showInuSpeak("It's " + (isMarked ? "marked" : "unmarked") +
+                        " already, AWO!", true);
+                say("The following item is already " + (isMarked ? "marked" : "unmarked"));
+                System.out.println("\t" + taskList.getTask(index));
+            } else {
+                showInuSpeak((isMarked ? "Marked" : "Unmarked") + ", WOOF!", false);
+                say((isMarked ? "Marked" : "Unmarked") + " the following item");
+                System.out.println("\t" + taskList.getTask(index));
+            }
+        } catch (IndexOutOfBoundsException | NullPointerException e) {
+            showInuSpeak("It doesn't exist, AWO!", true);
             say("Unable to " + (isMarked ? "mark" : "unmark") + " item " + index + " as it does not exist");
-        } else if (markResult == -2) {
-            showInuSpeak("It's " + (isMarked ? "marked" : "unmarked") +
-                    " already, WOOF!", true);
-            say("The following item is already " + (isMarked ? "marked" : "unmarked"));
-            System.out.println("\t" + taskList.getTask(index));
-        } else {
-            showInuSpeak((isMarked ? "Marked" : "Unmarked") + ", WOOF!", false);
-            say((isMarked ? "Marked" : "Unmarked") + " the following item");
-            System.out.println("\t" + taskList.getTask(index));
         }
     }
 
@@ -151,61 +155,115 @@ public class InuChan {
      * @param command The input command.
      * @return Array of tokens and its respective arguments.
      */
-    public static String[] tokenize(String command) {
-        String[] spaceSeparatedToken = command.split(" ");
-        String[] slashSeparatedToken = command.split("/");
-        if (spaceSeparatedToken.length == 1) {
-            return new String[] {spaceSeparatedToken[0]};
-        } else if (spaceSeparatedToken.length == 2 &&
-                (spaceSeparatedToken[0].equals("mark") || spaceSeparatedToken[0].equals("unmark"))) {
-            return new String[] {spaceSeparatedToken[0], spaceSeparatedToken[1]};
-        } else if (spaceSeparatedToken[0].equals("todo")) {
-            return new String[] {spaceSeparatedToken[0], command.substring(4).strip()};
-        } else if (spaceSeparatedToken[0].equals("deadline")) {
-            return new String[] {spaceSeparatedToken[0],
-                    slashSeparatedToken[0].substring(8).strip(),
-                    slashSeparatedToken[1].substring(2).strip()};
-        } else if (spaceSeparatedToken[0].equals("event")) {
-            return new String[] {spaceSeparatedToken[0],
-                    slashSeparatedToken[0].substring(6).strip(),
-                    slashSeparatedToken[1].substring(4).strip(),
-                    slashSeparatedToken[2].substring(2).strip()};
-        } else {
-            return new String[] {command};
+    public static String[] tokenize(String command) throws InvalidCommand, InvalidArgument, InvalidArgumentCount {
+        String[] spaceSeparatedToken = command.split(" +");
+
+        String firstWord = spaceSeparatedToken[0];
+        int wordCount = spaceSeparatedToken.length;
+
+        boolean hasArgumentBy = command.contains("/by");
+        boolean hasArgumentFrom = command.contains("/from");
+        boolean hasArgumentTo = command.contains("/to");
+        int argumentCount = command.split("/by|/from|/to").length - 1;
+
+        return switch (firstWord) {
+            case "mark", "unmark" -> {
+                if (wordCount != 2) {
+                    throw new InvalidArgumentCount();
+                }
+                yield new String[]{firstWord, spaceSeparatedToken[1]};
+            }
+            case "todo" -> {
+                if (hasArgumentBy || hasArgumentFrom || hasArgumentTo) {
+                    throw new InvalidArgument();
+                }
+                yield new String[]{firstWord,
+                        command.substring("todo".length()).strip()};
+            }
+            case "deadline" -> {
+                if (hasArgumentFrom || hasArgumentTo) {
+                    throw new InvalidArgument();
+                } else if (argumentCount != 1) {
+                    throw new InvalidArgumentCount();
+                } else {
+                    String[] arguments = command.split("/by");
+                    String deadlineName = arguments[0].substring("deadline".length()).strip();
+                    String argumentBy = arguments[1].strip();
+                    if (deadlineName.isEmpty()) {
+                        throw new InvalidArgument();
+                    }
+                    yield new String[]{firstWord,
+                            deadlineName,
+                            argumentBy};
+                }
+            }
+            case "event" -> {
+                if (hasArgumentBy) {
+                    throw new InvalidArgument();
+                } else if (argumentCount != 2) {
+                    throw new InvalidArgumentCount();
+                } else {
+                    String eventName = command.split("/from")[0].substring("event".length()).strip();
+                    String argumentFrom = command.split("/from")[1].strip();
+
+                    String argumentTo;
+                    if (argumentFrom.contains("/to")) {
+                        argumentTo = argumentFrom.split("/to")[1].strip();
+                        argumentFrom = argumentFrom.split("/to")[0].strip();
+                    } else {
+                        argumentTo = eventName.split("/to")[1].strip();
+                        eventName = eventName.split("/to")[0].strip();
+                    }
+
+                    if (eventName.isEmpty()) {
+                        throw new InvalidArgument();
+                    }
+
+                    yield new String[]{firstWord,
+                            eventName,
+                            argumentFrom,
+                            argumentTo};
+                }
+            }
+            case "bye", "list" -> {
+                if (wordCount > 1) {
+                    throw new InvalidArgumentCount();
+                }
+                yield new String[]{firstWord};
+            }
+            default -> throw new InvalidCommand();
+        };
+    }
+
+    public static void handleCommand(String command) throws InvalidCommand, InvalidArgument, InvalidArgumentCount {
+        String[] tokenizedCommand = tokenize(command);
+        switch (tokenizedCommand[0]) {
+            case "bye" -> isEnded = true;
+            case "list" -> printList();
+            case "mark" -> markTask(Integer.parseInt(tokenizedCommand[1]), true);
+            case "unmark" -> markTask(Integer.parseInt(tokenizedCommand[1]), false);
+            case "todo" -> addToDo(tokenizedCommand[1]);
+            case "deadline" -> addDeadline(tokenizedCommand[1], tokenizedCommand[2]);
+            case "event" -> addEvent(tokenizedCommand[1], tokenizedCommand[2], tokenizedCommand[3]);
+            default -> echo(command);
         }
     }
 
-
     public static void main(String[] args) {
         greet();
-        boolean isEnded = false;
         while (!isEnded) {
             String command = new java.util.Scanner(System.in).nextLine();
-            String[] tokenizedCommand = tokenize(command.strip());
-            switch (tokenizedCommand[0]) {
-            case "bye":
-                isEnded = true;
-                break;
-            case "list":
-                printList();
-                break;
-            case "mark":
-                markTask(Integer.parseInt(tokenizedCommand[1]), true);
-                break;
-            case "unmark":
-                markTask(Integer.parseInt(tokenizedCommand[1]), false);
-                break;
-            case "todo":
-                addToDo(tokenizedCommand[1]);
-                break;
-            case "deadline":
-                addDeadline(tokenizedCommand[1], tokenizedCommand[2]);
-                break;
-            case "event":
-                addEvent(tokenizedCommand[1], tokenizedCommand[2], tokenizedCommand[3]);
-                break;
-            default:
-                echo(command);
+            try {
+                handleCommand(command);
+            } catch (InvalidArgumentCount | IndexOutOfBoundsException e) {
+                showInuSpeak("I don't understand, AWOO!", true);
+                say("Incorrect number of arguments!");
+            } catch (InvalidArgument | NumberFormatException e) {
+                showInuSpeak("I don't understand, AWOO!", true);
+                say("Illegal command argument!");
+            } catch (InvalidCommand e) {
+                showInuSpeak("I don't understand, AWOO!", true);
+                say("Illegal command!");
             }
         }
         sayBye();
