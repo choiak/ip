@@ -124,21 +124,21 @@ public class InuChan {
      * Mark the task of the given index as the required state.
      *
      * @param index The index of the task.
-     * @param isDone The required state of the task.
+     * @param isMarked The required state of the task.
      */
-    public static void markTask(Integer index, boolean isDone) {
-        Integer markResult = taskList.markTask(index, isDone);
+    public static void markTask(Integer index, boolean isMarked) {
+        Integer markResult = taskList.markTask(index, isMarked);
         if (markResult == -1) {
             showInuSpeak("It doesn't exist, WOOF!", true);
-            say("Unable to " + (isDone ? "mark" : "unmark") + " item " + index + " as it does not exist");
+            say("Unable to " + (isMarked ? "mark" : "unmark") + " item " + index + " as it does not exist");
         } else if (markResult == -2) {
-            showInuSpeak("It's " + (isDone ? "marked" : "unmarked") +
+            showInuSpeak("It's " + (isMarked ? "marked" : "unmarked") +
                     " already, WOOF!", true);
-            say("The following item is already " + (isDone ? "marked" : "unmarked"));
+            say("The following item is already " + (isMarked ? "marked" : "unmarked"));
             System.out.println("\t" + taskList.getTask(index));
         } else {
-            showInuSpeak((isDone ? "Marked" : "Unmarked") + ", WOOF!", false);
-            say((isDone ? "Marked" : "Unmarked") + " the following item");
+            showInuSpeak((isMarked ? "Marked" : "Unmarked") + ", WOOF!", false);
+            say((isMarked ? "Marked" : "Unmarked") + " the following item");
             System.out.println("\t" + taskList.getTask(index));
         }
     }
@@ -175,6 +175,7 @@ public class InuChan {
         }
     }
 
+
     public static void main(String[] args) {
         greet();
         boolean isEnded = false;
@@ -182,29 +183,29 @@ public class InuChan {
             String command = new java.util.Scanner(System.in).nextLine();
             String[] tokenizedCommand = tokenize(command.strip());
             switch (tokenizedCommand[0]) {
-                case "bye":
-                    isEnded = true;
-                    break;
-                case "list":
-                    printList();
-                    break;
-                case "mark":
-                    markTask(Integer.parseInt(tokenizedCommand[1]), true);
-                    break;
-                case "unmark":
-                    markTask(Integer.parseInt(tokenizedCommand[1]), false);
-                    break;
-                case "todo":
-                    addToDo(tokenizedCommand[1]);
-                    break;
-                case "deadline":
-                    addDeadline(tokenizedCommand[1], tokenizedCommand[2]);
-                    break;
-                case "event":
-                    addEvent(tokenizedCommand[1], tokenizedCommand[2], tokenizedCommand[3]);
-                    break;
-                default:
-                    echo(command);
+            case "bye":
+                isEnded = true;
+                break;
+            case "list":
+                printList();
+                break;
+            case "mark":
+                markTask(Integer.parseInt(tokenizedCommand[1]), true);
+                break;
+            case "unmark":
+                markTask(Integer.parseInt(tokenizedCommand[1]), false);
+                break;
+            case "todo":
+                addToDo(tokenizedCommand[1]);
+                break;
+            case "deadline":
+                addDeadline(tokenizedCommand[1], tokenizedCommand[2]);
+                break;
+            case "event":
+                addEvent(tokenizedCommand[1], tokenizedCommand[2], tokenizedCommand[3]);
+                break;
+            default:
+                echo(command);
             }
         }
         sayBye();
