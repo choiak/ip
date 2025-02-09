@@ -1,5 +1,7 @@
 package inuChan;
 
+import java.util.Scanner;
+
 import inuChan.commandExceptions.InvalidArgument;
 import inuChan.commandExceptions.InvalidArgumentCount;
 import inuChan.commandExceptions.InvalidCommand;
@@ -83,7 +85,7 @@ public class InuChan {
             showInuSpeak("The list is full, AWO!", true);
             say("Unable to add the given item to the list as the list is full");
         } else {
-            showInuSpeak("inuChan.task.Task added, WOOF!", false);
+            showInuSpeak("Task added, WOOF!", false);
             say("Added the following task as task " + result);
             System.out.println("\t" + taskList.getTask(result));
         }
@@ -165,15 +167,19 @@ public class InuChan {
         return new String[]{firstWord, spaceSeparatedToken[1]};
     }
 
-    private static String[] tokenizeTodo(String command) throws InvalidArgument {
+    private static String[] tokenizeTodo(String command) throws InvalidArgument, InvalidArgumentCount {
         if (command.contains("/by") || command.contains("/from") || command.contains("/to")) {
             throw new InvalidArgument();
         }
-        return new String[]{"todo", command.substring("todo".length()).strip()};
+        String todoName = command.substring("todo".length()).strip();
+        if (todoName.isEmpty()) {
+            throw new InvalidArgumentCount();
+        }
+        return new String[]{"todo", todoName};
     }
 
     private static String[] tokenizeDeadline(String command) throws InvalidArgument, InvalidArgumentCount {
-        int argumentCount = command.split("/by").length - 1;
+        int argumentCount = (command + "dummy").split("/by|/from|/to").length - 1;
         if (command.contains("/from") || command.contains("/to")) {
             throw new InvalidArgument();
         } else if (argumentCount != 1) {
@@ -193,7 +199,7 @@ public class InuChan {
     }
 
     private static String[] tokenizeEvent(String command) throws InvalidArgument, InvalidArgumentCount {
-        int argumentCount = command.split("/by|/from|/to").length - 1;
+        int argumentCount = (command + "dummy").split("/by|/from|/to").length - 1;
         if (command.contains("/by")) {
             throw new InvalidArgument();
         } else if (argumentCount != 2) {
@@ -269,8 +275,9 @@ public class InuChan {
 
     public static void main(String[] args) {
         greet();
+        Scanner input = new Scanner(System.in);
         while (!isEnded) {
-            String command = new java.util.Scanner(System.in).nextLine();
+            String command = input.nextLine();
             try {
                 handleCommand(command);
             } catch (InvalidArgumentCount | IndexOutOfBoundsException e) {

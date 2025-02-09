@@ -27,7 +27,7 @@ public class TaskList {
      * Return -1 if the list is full.
      *
      * @param task The task to be added.
-     * @return inuChan.task.Task count, -1 if the list is full.
+     * @return Task count, -1 if the list is full.
      */
     public Integer addTask(Task task) {
         if (taskCount < capacity) {
@@ -46,7 +46,7 @@ public class TaskList {
      *
      * @param index The index of the task.
      * @param isMarked The required state of the task.
-     * @return inuChan.task.Task index, SAME_STATE if the task is already in the required state.
+     * @return Task index, SAME_STATE if the task is already in the required state.
      */
     public int markTask(Integer index, Boolean isMarked) {
         final int SAME_STATE = -1;
