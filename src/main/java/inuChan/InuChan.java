@@ -262,7 +262,7 @@ public class InuChan {
     public static void handleCommand(String command) throws InvalidCommand, InvalidArgument, InvalidArgumentCount {
         String[] tokenizedCommand = tokenize(command);
         switch (tokenizedCommand[0]) {
-            case "bye" -> isEnded = true;
+            case "bye", "quit", "exit" -> isEnded = true;
             case "list" -> printList();
             case "mark" -> markTask(Integer.parseInt(tokenizedCommand[1]), true);
             case "unmark" -> markTask(Integer.parseInt(tokenizedCommand[1]), false);
