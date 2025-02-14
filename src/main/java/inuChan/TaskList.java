@@ -52,6 +52,10 @@ public class TaskList {
         }
     }
 
+    public void deleteTask(int index) {
+        tasks.remove(index - 1);
+    }
+
     @Override
     public String toString() {
         String result = "";

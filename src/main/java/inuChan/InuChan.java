@@ -7,6 +7,7 @@ import inuChan.commandExceptions.InvalidArgumentCount;
 import inuChan.commandExceptions.InvalidCommand;
 import inuChan.tasks.Deadline;
 import inuChan.tasks.Event;
+import inuChan.tasks.Task;
 import inuChan.tasks.ToDo;
 
 public class InuChan {
@@ -158,7 +159,20 @@ public class InuChan {
         }
     }
 
-    private static String[] tokenizeMarkUnmark(String command, String firstWord) throws InvalidArgumentCount {
+    public static void deleteTask(int index) {
+        try {
+            Task task = taskList.getTask(index);
+            taskList.deleteTask(index);
+            showInuSpeak("deleted, WOOF!", false);
+            say("deleted the following item");
+            System.out.println("\t" + task);
+        } catch (IndexOutOfBoundsException | NullPointerException e) {
+            showInuSpeak("It doesn't exist, AWO!", true);
+            say("Unable to delete item " + index + " as it does not exist");
+        }
+    }
+
+    private static String[] tokenizeTaskIndexArgCommand(String command, String firstWord) throws InvalidArgumentCount {
         String[] spaceSeparatedToken = command.split(" +");
         int wordCount = spaceSeparatedToken.length;
         if (wordCount != 2) {
@@ -250,7 +264,7 @@ public class InuChan {
         String firstWord = command.split(" +")[0];
 
         return switch (firstWord) {
-            case "mark", "unmark" -> tokenizeMarkUnmark(command, firstWord);
+            case "mark", "unmark", "delete", "remove" -> tokenizeTaskIndexArgCommand(command, firstWord);
             case "todo" -> tokenizeTodo(command);
             case "deadline" -> tokenizeDeadline(command);
             case "event" -> tokenizeEvent(command);
@@ -266,6 +280,7 @@ public class InuChan {
             case "list" -> printList();
             case "mark" -> markTask(Integer.parseInt(tokenizedCommand[1]), true);
             case "unmark" -> markTask(Integer.parseInt(tokenizedCommand[1]), false);
+            case "delete", "remove" -> deleteTask(Integer.parseInt(tokenizedCommand[1]));
             case "todo" -> addToDo(tokenizedCommand[1]);
             case "deadline" -> addDeadline(tokenizedCommand[1], tokenizedCommand[2]);
             case "event" -> addEvent(tokenizedCommand[1], tokenizedCommand[2], tokenizedCommand[3]);
