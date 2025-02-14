@@ -288,7 +288,7 @@ public class InuChan {
                 say("Illegal command argument!");
             } catch (InvalidCommand e) {
                 showInuSpeak("I don't understand, AWOO!", true);
-                say("Illegal command!");
+                say("Command does not exist!");
             }
         }
         sayBye();
