@@ -2,6 +2,9 @@ package inuChan;
 
 import java.util.ArrayList;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 import inuChan.tasks.Task;
 
 public class TaskList {
@@ -54,6 +57,13 @@ public class TaskList {
 
     public void deleteTask(int index) {
         tasks.remove(index - 1);
+    }
+
+    public void writeData(FileWriter fileWriter) throws IOException {
+        for (Task task : tasks) {
+            task.writeData(fileWriter);
+            fileWriter.write("\n");
+        }
     }
 
     @Override

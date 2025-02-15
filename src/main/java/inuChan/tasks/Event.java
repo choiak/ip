@@ -11,6 +11,11 @@ public class Event extends Task {
     }
 
     @Override
+    public String formatForFile() {
+        return super.formatForFile().replaceFirst("\\*", "E") + "]|[" + from + "]|[" + to;
+    }
+
+    @Override
     public String toString() {
         return super.toString().replaceFirst("\\*", "E") + " (" + from + " -> " + to + ")";
     }
