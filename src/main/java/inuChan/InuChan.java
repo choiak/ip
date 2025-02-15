@@ -164,6 +164,7 @@ public class InuChan {
                 showInuSpeak((isMarked ? "Marked" : "Unmarked") + ", WOOF!", false);
                 say((isMarked ? "Marked" : "Unmarked") + " the following item");
                 System.out.println("\t" + taskList.getTask(index));
+                writeData();
             }
         } catch (IndexOutOfBoundsException | NullPointerException e) {
             showInuSpeak("It doesn't exist, AWO!", true);
