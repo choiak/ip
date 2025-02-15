@@ -6,6 +6,11 @@ public class ToDo extends Task {
     }
 
     @Override
+    public String formatForFile() {
+        return super.formatForFile().replaceFirst("\\*", "T");
+    }
+
+    @Override
     public String toString() {
         return super.toString().replaceFirst("\\*", "T");
     }

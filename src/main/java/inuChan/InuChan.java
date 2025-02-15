@@ -1,5 +1,10 @@
 package inuChan;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 import inuChan.commandExceptions.InvalidArgument;
@@ -7,6 +12,7 @@ import inuChan.commandExceptions.InvalidArgumentCount;
 import inuChan.commandExceptions.InvalidCommand;
 import inuChan.tasks.Deadline;
 import inuChan.tasks.Event;
+import inuChan.tasks.Task;
 import inuChan.tasks.ToDo;
 
 public class InuChan {
@@ -98,6 +104,7 @@ public class InuChan {
      */
     public static void addToDo(String name) {
         printAddTaskResult(taskList.addTask(new ToDo(name)));
+        writeData();
     }
 
     /**
@@ -108,6 +115,7 @@ public class InuChan {
      */
     public static void addDeadline(String name, String by) {
         printAddTaskResult(taskList.addTask(new Deadline(name, by)));
+        writeData();
     }
 
     /**
@@ -119,6 +127,11 @@ public class InuChan {
      */
     public static void addEvent(String name, String from, String to) {
         printAddTaskResult(taskList.addTask(new Event(name, from, to)));
+        writeData();
+    }
+
+    public static void addTask(Task task) {
+        taskList.addTask(task);
     }
 
     public static void printList() {
@@ -273,8 +286,53 @@ public class InuChan {
         }
     }
 
+    public static void readData() {
+        try {
+            Files.createDirectories(Paths.get("./data"));
+            File file = new File("./data/InuChan.txt");
+            file.createNewFile();
+            Scanner fileScanner = new Scanner(file);
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine();
+                String[] tokens = line.split("]\\|\\[");
+
+                Task task = new Task("dummy");
+                if (tokens[0].equals("T")) {
+                    task = new ToDo(tokens[2]);
+                } else if (tokens[0].equals("D")) {
+                    task = new Deadline(tokens[2], tokens[3]);
+                } else if (tokens[0].equals("E")) {
+                    task = new Event(tokens[2], tokens[3], tokens[4]);
+                }
+
+                if (tokens[1].equals("X")) {
+                    task.markTask(true);
+                }
+                taskList.addTask(task);
+            }
+        } catch (IOException e) {
+            showInuSpeak("Something's wrong, AWO!", true);
+            say("File reading went wrong!");
+        } catch (RuntimeException e) {
+            showInuSpeak("File corrupted, AWO!", true);
+            say("Incorrect file format!");
+        }
+    }
+
+    public static void writeData() {
+        try {
+            FileWriter fileWriter = new FileWriter("./data/InuChan.txt");
+            taskList.writeData(fileWriter);
+            fileWriter.close();
+        } catch (IOException e) {
+            showInuSpeak("Something's wrong, AWO!", true);
+            say("File writing went wrong!");
+        }
+    }
+
     public static void main(String[] args) {
         greet();
+        readData();
         Scanner input = new Scanner(System.in);
         while (!isEnded) {
             String command = input.nextLine();

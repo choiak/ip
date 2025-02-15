@@ -1,5 +1,8 @@
 package inuChan.tasks;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Task {
     private String name;
     private Boolean isMarked;
@@ -19,6 +22,14 @@ public class Task {
 
     public void markTask(Boolean isMarked) {
         this.isMarked = isMarked;
+    }
+
+    public String formatForFile() {
+        return "*]|[" + (isMarked ? "1" : "0") + "]|[" + name;
+    }
+
+    public void writeData(FileWriter fileWriter) throws IOException {
+        fileWriter.write(formatForFile());
     }
 
     @Override

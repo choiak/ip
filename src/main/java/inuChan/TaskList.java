@@ -1,5 +1,8 @@
 package inuChan;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 import inuChan.tasks.Task;
 
 public class TaskList {
@@ -57,6 +60,13 @@ public class TaskList {
         } else {
             list[index - 1].markTask(isMarked);
             return index;
+        }
+    }
+
+    public void writeData(FileWriter fileWriter) throws IOException {
+        for (int i = 0; i < taskCount; i++) {
+            list[i].writeData(fileWriter);
+            fileWriter.write("\n");
         }
     }
 
