@@ -260,6 +260,10 @@ public class InuChan {
      * @throws InvalidArgumentCount If there is an invalid number of arguments.
      */
     public static String[] tokenize(String command) throws InvalidCommand, InvalidArgument, InvalidArgumentCount {
+        if (command.contains("]|[")) {
+            throw new InvalidArgument();
+        }
+
         String firstWord = command.split(" +")[0];
 
         return switch (firstWord) {
