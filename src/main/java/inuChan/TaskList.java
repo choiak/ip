@@ -37,11 +37,11 @@ public class TaskList {
     /**
      * Mark the task of the given index as the required state.
      * Return the task index.
-     * Return negative value if the index is invalid or the task is already in the required state.
+     * Return SAME_STATE if the task is already in the required state.
      *
      * @param index The index of the task.
      * @param isMarked The required state of the task.
-     * @return Task index, SAME_STATE if the task is already in the required state.
+     * @return Task index. Or SAME_STATE if the task is already in the required state.
      */
     public int markTask(Integer index, Boolean isMarked) {
         final int SAME_STATE = -1;

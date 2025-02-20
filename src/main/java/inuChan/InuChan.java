@@ -18,6 +18,8 @@ import inuChan.tasks.ToDo;
 public class InuChan {
     private static TaskList taskList = new TaskList();
     private static boolean isEnded = false;
+    private static final String SPLITTER = "]|[";
+    private static final String MARKED = "X";
 
     /**
      * Print Inu-chan with the given line next to him like below
@@ -53,12 +55,18 @@ public class InuChan {
                 %n""",face, line);
     }
 
+    /**
+     * Print greeting messages when the program starts.
+     */
     public static void greet() {
         showInuSpeak("WOOF! WOOF!", false);
         System.out.println("Hi there! I'm Inu-chan, woof!");
         ask("How can I help you");
     }
 
+    /**
+     * Print goodbye messages when the program ends.
+     */
     public static void sayBye() {
         showInuSpeak("AWOO!", true);
         System.out.println("Woof! I will be waiting you! See you, awooooo!");
@@ -82,10 +90,6 @@ public class InuChan {
         System.out.println(line + ", ruff!");
     }
 
-    public static void echo(String line) {
-        showInuSpeak(line, false);
-    }
-
     public static void printAddTaskResult(Integer result) {
         if (result == -1) {
             showInuSpeak("The list is full, AWO!", true);
@@ -99,6 +103,7 @@ public class InuChan {
 
     /**
      * Add a to-do task to the list.
+     * Then save the data.
      *
      * @param name Name of the to-do task.
      */
@@ -109,6 +114,7 @@ public class InuChan {
 
     /**
      * Add a deadline task to the list.
+     * Then save the data.
      *
      * @param name Name of the deadline task.
      * @param by When the deadline is due.
@@ -120,6 +126,7 @@ public class InuChan {
 
     /**
      * Add an event task to the list.
+     * Then save the data.
      *
      * @param name Name of the event task.
      * @param from When the event starts.
@@ -128,10 +135,6 @@ public class InuChan {
     public static void addEvent(String name, String from, String to) {
         printAddTaskResult(taskList.addTask(new Event(name, from, to)));
         writeData();
-    }
-
-    public static void addTask(Task task) {
-        taskList.addTask(task);
     }
 
     public static void printList() {
@@ -172,11 +175,20 @@ public class InuChan {
         }
     }
 
+    /**
+     * Delete the task of the given index.
+     * Then save the data.
+     * Print the task deleted or error message if the index is invalid.
+     *
+     * @param index The index of the task.
+     */
     public static void deleteTask(int index) {
         try {
             Task task = taskList.getTask(index);
+
             taskList.deleteTask(index);
             writeData();
+
             showInuSpeak("deleted, WOOF!", false);
             say("deleted the following item");
             System.out.println("\t" + task);
@@ -199,10 +211,12 @@ public class InuChan {
         if (command.contains("/by") || command.contains("/from") || command.contains("/to")) {
             throw new InvalidArgument();
         }
+
         String todoName = command.substring("todo".length()).strip();
         if (todoName.isEmpty()) {
             throw new InvalidArgumentCount();
         }
+
         return new String[]{"todo", todoName};
     }
 
@@ -227,7 +241,8 @@ public class InuChan {
     }
 
     private static String[] tokenizeEvent(String command) throws InvalidArgument, InvalidArgumentCount {
-        int argumentCount = (command + "dummy").split("/by|/from|/to").length - 1;
+        int argumentCount = (command + "DUMMY_TEXT").split("/by|/from|/to").length - 1;
+
         if (command.contains("/by")) {
             throw new InvalidArgument();
         } else if (argumentCount != 2) {
@@ -266,7 +281,7 @@ public class InuChan {
     /**
      * Tokenize the input command.
      * Return an array of tokens.
-     * Index 0 is the command itself, and the rest are arguments.
+     * Index 0 is the command keyword itself, and the rest are arguments.
      *
      * @param command The input command.
      * @return Array of tokens and its respective arguments.
@@ -275,7 +290,7 @@ public class InuChan {
      * @throws InvalidArgumentCount If there is an invalid number of arguments.
      */
     public static String[] tokenize(String command) throws InvalidCommand, InvalidArgument, InvalidArgumentCount {
-        if (command.contains("]|[")) {
+        if (command.contains(SPLITTER)) {
             throw new InvalidArgument();
         }
 
@@ -291,43 +306,49 @@ public class InuChan {
         };
     }
 
+    /**
+     * Handle the input command.
+     * Tokenize the command and call the appropriate method.
+     *
+     * @param command The input command.
+     * @throws InvalidCommand If there is no such command.
+     * @throws InvalidArgument If there is an invalid argument.
+     * @throws InvalidArgumentCount If there is an invalid number of arguments.
+     */
     public static void handleCommand(String command) throws InvalidCommand, InvalidArgument, InvalidArgumentCount {
-        String[] tokenizedCommand = tokenize(command);
-        switch (tokenizedCommand[0]) {
-            case "bye", "quit", "exit" -> isEnded = true;
-            case "list" -> printList();
-            case "mark" -> markTask(Integer.parseInt(tokenizedCommand[1]), true);
-            case "unmark" -> markTask(Integer.parseInt(tokenizedCommand[1]), false);
-            case "delete", "remove" -> deleteTask(Integer.parseInt(tokenizedCommand[1]));
-            case "todo" -> addToDo(tokenizedCommand[1]);
-            case "deadline" -> addDeadline(tokenizedCommand[1], tokenizedCommand[2]);
-            case "event" -> addEvent(tokenizedCommand[1], tokenizedCommand[2], tokenizedCommand[3]);
-            default -> echo(command);
+        try {
+            String[] tokenizedCommand = tokenize(command);
+
+            switch (tokenizedCommand[0]) {
+                case "bye", "quit", "exit" -> isEnded = true;
+                case "list" -> printList();
+                case "mark" -> markTask(Integer.parseInt(tokenizedCommand[1]), true);
+                case "unmark" -> markTask(Integer.parseInt(tokenizedCommand[1]), false);
+                case "delete", "remove" -> deleteTask(Integer.parseInt(tokenizedCommand[1]));
+                case "todo" -> addToDo(tokenizedCommand[1]);
+                case "deadline" -> addDeadline(tokenizedCommand[1], tokenizedCommand[2]);
+                case "event" -> addEvent(tokenizedCommand[1], tokenizedCommand[2], tokenizedCommand[3]);
+                default -> throw new InvalidCommand();
+            }
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidArgumentCount();
         }
     }
 
+    /**
+     *  Read the task list data from file.
+     *  If there is no file, create one.
+     */
     public static void readData() {
         try {
             Files.createDirectories(Paths.get("./data"));
             File file = new File("./data/InuChan.txt");
             file.createNewFile();
+
             Scanner fileScanner = new Scanner(file);
             while (fileScanner.hasNextLine()) {
                 String line = fileScanner.nextLine();
-                String[] tokens = line.split("]\\|\\[");
-
-                Task task = new Task("dummy");
-                if (tokens[0].equals("T")) {
-                    task = new ToDo(tokens[2]);
-                } else if (tokens[0].equals("D")) {
-                    task = new Deadline(tokens[2], tokens[3]);
-                } else if (tokens[0].equals("E")) {
-                    task = new Event(tokens[2], tokens[3], tokens[4]);
-                }
-
-                if (tokens[1].equals("X")) {
-                    task.markTask(true);
-                }
+                Task task = getTaskFromLine(line);
                 taskList.addTask(task);
             }
         } catch (IOException e) {
@@ -337,6 +358,30 @@ public class InuChan {
             showInuSpeak("File corrupted, AWO!", true);
             say("Incorrect file format!");
         }
+    }
+
+    /**
+     * Read the input line and return a Task object.
+     *
+     * @param line The input line.
+     * @return Task object.
+     * @throws RuntimeException If the input line is not in the correct format.
+     */
+    private static Task getTaskFromLine(String line) throws RuntimeException {
+        // Split the line into tokens separated by SPLITTER "]\|["
+        String[] tokens = line.split("]\\|\\[");
+
+        Task task = switch (tokens[0]) {
+            case "T" -> new ToDo(tokens[2]);
+            case "D" -> new Deadline(tokens[2], tokens[3]);
+            case "E" -> new Event(tokens[2], tokens[3], tokens[4]);
+            default -> throw new RuntimeException();
+        };
+
+        if (tokens[1].equals(MARKED)) {
+            task.markTask(true);
+        }
+        return task;
     }
 
     public static void writeData() {
@@ -353,12 +398,13 @@ public class InuChan {
     public static void main(String[] args) {
         greet();
         readData();
+
         Scanner input = new Scanner(System.in);
         while (!isEnded) {
             String command = input.nextLine();
             try {
                 handleCommand(command);
-            } catch (InvalidArgumentCount | IndexOutOfBoundsException e) {
+            } catch (InvalidArgumentCount e) {
                 showInuSpeak("I don't understand, AWOO!", true);
                 say("Incorrect number of arguments!");
             } catch (InvalidArgument | NumberFormatException e) {
@@ -369,6 +415,7 @@ public class InuChan {
                 say("Command does not exist!");
             }
         }
+
         sayBye();
     }
 }
