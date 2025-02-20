@@ -6,6 +6,8 @@ import java.io.IOException;
 public class Task {
     private static final String TASK_CODE_WILDCARD = "*";
     private static final String SPLITTER = "]|[";
+    private static final String MARKED = "X";
+    private static final String NOT_MARKED = " ";
 
     private final String name;
     private Boolean isMarked;
@@ -29,7 +31,7 @@ public class Task {
      * @return String for writing to file.
      */
     protected String formatForFile() {
-        return TASK_CODE_WILDCARD + SPLITTER + (isMarked ? "1" : "0") + SPLITTER + name;
+        return TASK_CODE_WILDCARD + SPLITTER + (isMarked ? MARKED : NOT_MARKED) + SPLITTER + name;
     }
 
     /**
