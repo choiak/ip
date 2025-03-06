@@ -1,4 +1,4 @@
-package inuChan.commandExceptions;
+package inuChan.command.commandexceptions;
 
 public class InvalidArgumentCount extends Exception {
 }
