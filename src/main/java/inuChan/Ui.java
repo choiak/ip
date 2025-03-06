@@ -131,6 +131,7 @@ public class Ui {
     }
 
     public void printTasksFound(TaskList tasksFound, String target) {
+    public void printTasksFound(TaskList tasksFound) {
         if (tasksFound.getTaskCount() == 0) {
             showInuSpeak("I can't find anything, AWO!", true);
             say("There is no matching task");

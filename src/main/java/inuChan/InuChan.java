@@ -180,6 +180,6 @@ public class InuChan {
 
     public void find(String target) {
         TaskList tasksFound = taskList.find(target);
-        ui.printTasksFound(tasksFound, target);
+        ui.printTasksFound(tasksFound);
     }
 }
