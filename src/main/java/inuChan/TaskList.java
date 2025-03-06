@@ -82,6 +82,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Find all the tasks that contain target.
+     *
+     * @param target String to be match.
+     * @return List of matching tasks. The list will be empty if nothing match.
+     */
     public TaskList find(String target) {
         TaskList result = new TaskList();
         for (Task task : tasks) {
