@@ -92,6 +92,7 @@ public class InuChan {
                 case "todo" -> addToDo(tokenizedCommand[1]);
                 case "deadline" -> addDeadline(tokenizedCommand[1], tokenizedCommand[2]);
                 case "event" -> addEvent(tokenizedCommand[1], tokenizedCommand[2], tokenizedCommand[3]);
+                case "find" -> find(tokenizedCommand[1]);
                 default -> throw new InvalidCommand();
             }
         } catch (IndexOutOfBoundsException e) {
@@ -175,5 +176,10 @@ public class InuChan {
     public void addEvent(String name, String from, String to) {
         ui.printAddTaskResult(taskList, taskList.addTask(new Event(name, from, to)));
         writeData();
+    }
+
+    public void find(String target) {
+        TaskList tasksFound = taskList.find(target);
+        ui.printTasksFound(tasksFound);
     }
 }

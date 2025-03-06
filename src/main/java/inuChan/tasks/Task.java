@@ -25,6 +25,10 @@ public class Task {
         this.isMarked = isMarked;
     }
 
+    public boolean isContain(String target) {
+        return toString().contains(target);
+    }
+
     /**
      * Convert task into string in the format that is expected for writing to file.
      *
