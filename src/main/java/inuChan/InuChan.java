@@ -79,7 +79,7 @@ public class InuChan {
      * @throws InvalidArgument If there is an invalid argument.
      * @throws InvalidArgumentCount If there is an invalid number of arguments.
      */
-    public void handleCommand(String command) throws InvalidCommand, InvalidArgument, InvalidArgumentCount {
+    private void handleCommand(String command) throws InvalidCommand, InvalidArgument, InvalidArgumentCount {
         try {
             String[] tokenizedCommand = Parser.tokenize(command);
 
@@ -92,6 +92,7 @@ public class InuChan {
                 case "todo" -> addToDo(tokenizedCommand[1]);
                 case "deadline" -> addDeadline(tokenizedCommand[1], tokenizedCommand[2]);
                 case "event" -> addEvent(tokenizedCommand[1], tokenizedCommand[2], tokenizedCommand[3]);
+                case "find" -> find(tokenizedCommand[1]);
                 default -> throw new InvalidCommand();
             }
         } catch (IndexOutOfBoundsException e) {
@@ -105,7 +106,7 @@ public class InuChan {
      * @param index The index of the task.
      * @param isMarked The required state of the task.
      */
-    public void markTask(Integer index, boolean isMarked) {
+    private void markTask(Integer index, boolean isMarked) {
         try {
             int markResult = taskList.markTask(index, isMarked);
             ui.printMarkTaskResult(taskList, index, isMarked, markResult);
@@ -115,7 +116,7 @@ public class InuChan {
         }
     }
 
-    public void writeData() {
+    private void writeData() {
         try {
             storage.writeData(taskList);
         } catch (IOException e) {
@@ -130,7 +131,7 @@ public class InuChan {
      *
      * @param index The index of the task.
      */
-    public void deleteTask(int index) {
+    private void deleteTask(int index) {
         try {
             Task task = taskList.getTask(index);
             taskList.deleteTask(index);
@@ -147,7 +148,7 @@ public class InuChan {
      *
      * @param name Name of the to-do task.
      */
-    public void addToDo(String name) {
+    private void addToDo(String name) {
         ui.printAddTaskResult(taskList, taskList.addTask(new ToDo(name)));
         writeData();
     }
@@ -159,7 +160,7 @@ public class InuChan {
      * @param name Name of the deadline task.
      * @param by When the deadline is due.
      */
-    public void addDeadline(String name, String by) {
+    private void addDeadline(String name, String by) {
         ui.printAddTaskResult(taskList, taskList.addTask(new Deadline(name, by)));
         writeData();
     }
@@ -172,8 +173,13 @@ public class InuChan {
      * @param from When the event starts.
      * @param to When the event ends.
      */
-    public void addEvent(String name, String from, String to) {
+    private void addEvent(String name, String from, String to) {
         ui.printAddTaskResult(taskList, taskList.addTask(new Event(name, from, to)));
         writeData();
+    }
+
+    private void find(String target) {
+        TaskList tasksFound = taskList.find(target);
+        ui.printTasksFound(tasksFound);
     }
 }

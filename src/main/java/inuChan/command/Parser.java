@@ -26,7 +26,7 @@ public class Parser {
         String firstWord = command.split(" +")[0];
 
         return switch (firstWord) {
-            case "mark", "unmark", "delete", "remove" -> tokenizeTaskIndexArgCommand(command, firstWord);
+            case "find", "mark", "unmark", "delete", "remove" -> tokenizeSingleArgCommand(command, firstWord);
             case "todo" -> tokenizeTodo(command);
             case "deadline" -> tokenizeDeadline(command);
             case "event" -> tokenizeEvent(command);
@@ -43,7 +43,7 @@ public class Parser {
      * @return Array with the command keyword and the argument.
      * @throws InvalidArgumentCount If number of arguments is incorrect.
      */
-    private static String[] tokenizeTaskIndexArgCommand(String command, String firstWord) throws InvalidArgumentCount {
+    private static String[] tokenizeSingleArgCommand(String command, String firstWord) throws InvalidArgumentCount {
         String[] spaceSeparatedToken = command.split(" +");
         int wordCount = spaceSeparatedToken.length;
         if (wordCount != 2) {

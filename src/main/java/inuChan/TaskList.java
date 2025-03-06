@@ -82,6 +82,16 @@ public class TaskList {
         }
     }
 
+    public TaskList find(String target) {
+        TaskList result = new TaskList();
+        for (Task task : tasks) {
+            if (task.isContain(target)) {
+                result.addTask(task);
+            }
+        }
+        return result;
+    }
+
     @Override
     public String toString() {
         String result = "";
