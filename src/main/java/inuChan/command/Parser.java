@@ -7,7 +7,35 @@ import inuChan.command.commandexceptions.InvalidCommand;
 public class Parser {
     private static final String SPLITTER = "]|[";
 
-    private static String[] tokenizeTaskIndexArgCommand(String command, String firstWord) throws InvalidArgumentCount {
+    /**
+     * Tokenize the input command.
+     * Return an array of tokens.
+     * Index 0 is the command keyword itself, and the rest are arguments.
+     *
+     * @param command The input command.
+     * @return Array of tokens and its respective arguments.
+     * @throws InvalidCommand If there is no such command.
+     * @throws InvalidArgument If there is an invalid argument.
+     * @throws InvalidArgumentCount If there is an invalid number of arguments.
+     */
+    public static String[] tokenize(String command) throws InvalidCommand, InvalidArgument, InvalidArgumentCount {
+        if (command.contains(SPLITTER)) {
+            throw new InvalidArgument();
+        }
+
+        String firstWord = command.split(" +")[0];
+
+        return switch (firstWord) {
+            case "find", "mark", "unmark", "delete", "remove" -> tokenizeSingleArgCommand(command, firstWord);
+            case "todo" -> tokenizeTodo(command);
+            case "deadline" -> tokenizeDeadline(command);
+            case "event" -> tokenizeEvent(command);
+            case "bye", "quit", "exit", "goodbye", "list" -> tokenizeByeList(command, firstWord);
+            default -> throw new InvalidCommand();
+        };
+    }
+
+    private static String[] tokenizeSingleArgCommand(String command, String firstWord) throws InvalidArgumentCount {
         String[] spaceSeparatedToken = command.split(" +");
         int wordCount = spaceSeparatedToken.length;
         if (wordCount != 2) {
@@ -85,33 +113,5 @@ public class Parser {
             throw new InvalidArgumentCount();
         }
         return new String[]{(firstWord.equals("list")) ? "list" : "bye"};
-    }
-
-    /**
-     * Tokenize the input command.
-     * Return an array of tokens.
-     * Index 0 is the command keyword itself, and the rest are arguments.
-     *
-     * @param command The input command.
-     * @return Array of tokens and its respective arguments.
-     * @throws InvalidCommand If there is no such command.
-     * @throws InvalidArgument If there is an invalid argument.
-     * @throws InvalidArgumentCount If there is an invalid number of arguments.
-     */
-    public static String[] tokenize(String command) throws InvalidCommand, InvalidArgument, InvalidArgumentCount {
-        if (command.contains(SPLITTER)) {
-            throw new InvalidArgument();
-        }
-
-        String firstWord = command.split(" +")[0];
-
-        return switch (firstWord) {
-            case "mark", "unmark", "delete", "remove" -> tokenizeTaskIndexArgCommand(command, firstWord);
-            case "todo" -> tokenizeTodo(command);
-            case "deadline" -> tokenizeDeadline(command);
-            case "event" -> tokenizeEvent(command);
-            case "bye", "quit", "exit", "goodbye", "list" -> tokenizeByeList(command, firstWord);
-            default -> throw new InvalidCommand();
-        };
     }
 }

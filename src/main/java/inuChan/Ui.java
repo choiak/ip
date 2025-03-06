@@ -129,4 +129,15 @@ public class Ui {
             System.out.println(taskList);
         }
     }
+
+    public void printTasksFound(TaskList tasksFound, String target) {
+        if (tasksFound.getTaskCount() == 0) {
+            showInuSpeak("I can't find anything, AWO!", true);
+            say("There is no matching task");
+        } else {
+            showInuSpeak("I found these, WOOF!", false);
+            say("Here's the matching tasks");
+            System.out.println(tasksFound);
+        }
+    }
 }
