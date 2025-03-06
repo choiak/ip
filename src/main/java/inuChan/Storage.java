@@ -56,6 +56,12 @@ public class Storage {
         return task;
     }
 
+    /**
+     * Save the task list into the file.
+     *
+     * @param taskList Task list to be saved.
+     * @throws IOException If any error during the writing of file.
+     */
     public void writeData(TaskList taskList) throws IOException{
         FileWriter fileWriter = new FileWriter("./data/InuChan.txt");
         taskList.writeData(fileWriter);

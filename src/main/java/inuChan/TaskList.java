@@ -18,6 +18,11 @@ public class TaskList {
         return tasks.get(index - 1);
     }
 
+    /**
+     * Return the number of tasks.
+     *
+     * @return Number of tasks.
+     */
     public Integer getTaskCount() {
         return tasks.size();
     }
@@ -55,10 +60,21 @@ public class TaskList {
         }
     }
 
+    /**
+     * Delete the task with the given index from the taskList.
+     *
+     * @param index Index of the task.
+     */
     public void deleteTask(int index) {
         tasks.remove(index - 1);
     }
 
+    /**
+     * Write the task into the given FileWriter.
+     *
+     * @param fileWriter FileWriter to be written into.
+     * @throws IOException If any error during writing of file.
+     */
     public void writeData(FileWriter fileWriter) throws IOException {
         for (Task task : tasks) {
             task.writeData(fileWriter);
@@ -66,6 +82,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Find all the tasks that contain target.
+     *
+     * @param target String to be match.
+     * @return List of matching tasks. The list will be empty if nothing match.
+     */
     public TaskList find(String target) {
         TaskList result = new TaskList();
         for (Task task : tasks) {

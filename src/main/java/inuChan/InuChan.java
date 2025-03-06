@@ -178,6 +178,11 @@ public class InuChan {
         writeData();
     }
 
+    /**
+     * Find and print all the tasks that contain target.
+     *
+     * @param target Keyword to be found in tasks.
+     */
     private void find(String target) {
         TaskList tasksFound = taskList.find(target);
         ui.printTasksFound(tasksFound);

@@ -119,6 +119,12 @@ public class Ui {
         say("File writing went wrong!");
     }
 
+    /**
+     * Print the list of the tasks.
+     * Notify the user if the list is empty.
+     *
+     * @param taskList Task list to be printed.
+     */
     public void printList(TaskList taskList) {
         if (taskList.getTaskCount() == 0) {
             showInuSpeak("It's empty, AWO!", true);
@@ -130,6 +136,12 @@ public class Ui {
         }
     }
 
+    /**
+     * Print result of the task found.
+     * Notify the user if there is nothing found (i.e. the list is empty).
+     *
+     * @param tasksFound A list of tasks found.
+     */
     public void printTasksFound(TaskList tasksFound) {
         if (tasksFound.getTaskCount() == 0) {
             showInuSpeak("I can't find anything, AWO!", true);

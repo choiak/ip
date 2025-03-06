@@ -35,6 +35,14 @@ public class Parser {
         };
     }
 
+    /**
+     * Tokenize commands with single argument.
+     *
+     * @param command The input command.
+     * @param firstWord The command keyword.
+     * @return Array with the command keyword and the argument.
+     * @throws InvalidArgumentCount If number of arguments is incorrect.
+     */
     private static String[] tokenizeSingleArgCommand(String command, String firstWord) throws InvalidArgumentCount {
         String[] spaceSeparatedToken = command.split(" +");
         int wordCount = spaceSeparatedToken.length;
@@ -44,6 +52,14 @@ public class Parser {
         return new String[]{firstWord, spaceSeparatedToken[1]};
     }
 
+    /**
+     * Tokenize commands according to the to-do command pattern.
+     *
+     * @param command Input command.
+     * @return Array with the command keyword and arguments.
+     * @throws InvalidArgument If invalid argument is provided.
+     * @throws InvalidArgumentCount If number of arguments is incorrect.
+     */
     private static String[] tokenizeTodo(String command) throws InvalidArgument, InvalidArgumentCount {
         if (command.contains("/by") || command.contains("/from") || command.contains("/to")) {
             throw new InvalidArgument();
@@ -57,6 +73,14 @@ public class Parser {
         return new String[]{"todo", todoName};
     }
 
+    /**
+     * Tokenize commands according to the deadline command pattern.
+     *
+     * @param command Input command.
+     * @return Array with the command keyword and arguments.
+     * @throws InvalidArgument If invalid argument is provided.
+     * @throws InvalidArgumentCount If number of arguments is incorrect.
+     */
     private static String[] tokenizeDeadline(String command) throws InvalidArgument, InvalidArgumentCount {
         int argumentCount = (command + "dummy").split("/by|/from|/to").length - 1;
         if (command.contains("/from") || command.contains("/to")) {
@@ -77,6 +101,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Tokenize commands according to the event command pattern.
+     *
+     * @param command Input command.
+     * @return Array with the command keyword and arguments.
+     * @throws InvalidArgument If invalid argument is provided.
+     * @throws InvalidArgumentCount If number of arguments is incorrect.
+     */
     private static String[] tokenizeEvent(String command) throws InvalidArgument, InvalidArgumentCount {
         int argumentCount = (command + "DUMMY_TEXT").split("/by|/from|/to").length - 1;
 
@@ -108,6 +140,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Tokenize list and bye (i.e. exit) commands.
+     * Any words that are not "list" will be treated as "bye".
+     *
+     * @param command Input command.
+     * @param firstWord The command keyword.
+     * @return Array with the corresponding command keyword.
+     * @throws InvalidArgumentCount If number of arguments is incorrect.
+     */
     private static String[] tokenizeByeList(String command, String firstWord) throws InvalidArgumentCount {
         if (command.split(" +").length > 1) {
             throw new InvalidArgumentCount();
