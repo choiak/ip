@@ -1,10 +1,9 @@
 # Inu-chan User Guide
 
-// Product screenshot goes here
-
-// Product intro goes here
+Inu-chan is a command-line task manager that helps you manage your tasks.
 
 ## Adding tasks
+
 There are three types of tasks:
 
 * To-Do (labelled as T)
@@ -12,6 +11,7 @@ There are three types of tasks:
 * inuChan.tasks.Event (labelled as E)
 
 ### Adding To-Do
+
 Add a to-do task to the list.
 
 Command: `todo <task name>`
@@ -34,6 +34,7 @@ Added the following task as task 1, ruff!
 ```
 
 ### Adding deadline
+
 Add a to-do with deadline to the list.
 
 Command: `deadline <task name> /by <deadline>`
@@ -55,6 +56,7 @@ Added the following task as task 2, ruff!
 	[D][ ]: assignment 1 (by tomorrow)
 ```
 ### Adding event
+
 Add an event to the list.
 
 Command: `event <task name> /from <starting time> /to <ending time>`
@@ -80,6 +82,7 @@ Added the following task as task 3, ruff!
 ```
 
 ## Listing tasks
+
 List all tasks in the list. The number at the beginning of each line is the index of the task, the first bracket is the type of the task, and the second bracket indicate the completion of the task (X for completed, blank for not completed).
 
 Command: `list`
@@ -102,6 +105,7 @@ Here's the list, ruff!
 ```
 
 ## Marking tasks
+
 Mark a task as completed.
 
 Command: `mark <task index>`
@@ -124,6 +128,7 @@ Marked the following item, ruff!
 ```
 
 ## Unmarking tasks
+
 Mark a task as not completed.
 
 Command: `unmark <task index>`
@@ -145,29 +150,30 @@ Unmarked the following item, ruff!
     [T][ ]: read book
 ```
 
+## Finding tasks
+
+Find a task by keywords.
+
+Command: `find <keywords>`
+
+Example: `find book`
+
+Example output
+```
+       __    __
+       \/----\/
+        \^  ^/    I found these, WOOF!
+        _\  /_
+      _|  \/  |_
+     | | |  | | |
+    _| | |  | | |_
+   "---|_|--|_|---"
+
+Here's the matching tasks, ruff!
+1. [T][ ]: read book
+```
+
 ## Exit the program
 
 Command: `bye` or  `quit` or `exit` or `goodbye`
 
-## Adding deadlines
-
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
-```
-expected output
-```
-
-## Feature ABC
-
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
