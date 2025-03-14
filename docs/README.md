@@ -7,8 +7,8 @@ Inu-chan is a command-line task manager that helps you manage your tasks.
 There are three types of tasks:
 
 * To-Do (labelled as T)
-* inuChan.tasks.Deadline (labelled as D)
-* inuChan.tasks.Event (labelled as E)
+* Deadline (labelled as D)
+* Event (labelled as E)
 
 ### Adding To-Do
 
